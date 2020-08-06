@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/ui/pages/search_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -27,14 +28,60 @@ class _MyHomePageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Flutter Demo"),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return SearchPage();
+                }));
+              }),
+          IconButton(
+              icon: Icon(Icons.email),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Dialog Title"),
+                        content: Text("Dialog Content"),
+                        actions: <Widget>[
+                          FlatButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Cancel")),
+                          FlatButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Confirm"))
+                        ],
+                      );
+                    });
+              })
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.email), title: Text("Email")),
+              icon: Icon(Icons.home),
+              title: Text(
+                "Home",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )),
           BottomNavigationBarItem(
-              icon: Icon(Icons.phone), title: Text("Phone")),
+              icon: Icon(Icons.email),
+              title: Text(
+                "Email",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.phone),
+              title: Text(
+                "Phone",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )),
         ],
         onTap: (index) {
           setState(() {
