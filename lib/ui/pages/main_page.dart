@@ -62,6 +62,50 @@ class _MyHomePageState extends State<MainPage> {
               })
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Container(
+              child: DrawerHeader(
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10))),
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        CircleAvatar(
+                          radius: 30,
+                          child: Image.asset("assets/images/logo.png"),
+                        ),
+                        Text(
+                          "Drawer Header",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        )
+                      ],
+                    ),
+                  )),
+            ),
+            ListTile(
+              leading: Icon(Icons.phone),
+              title: Text("Phone"),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: Icon(Icons.email),
+              title: Text("Email"),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Home"),
+              onTap: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ui/pages/guide_page.dart';
 import 'package:flutter_app/ui/pages/main_page.dart';
 
 void main() => runApp(MyApp());
