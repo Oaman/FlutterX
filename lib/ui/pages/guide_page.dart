@@ -60,7 +60,7 @@ class GuidePageState extends State<GuidePage> {
               child: new Container(
                 margin: EdgeInsets.only(bottom: 160.0),
                 child: new Ink(
-                  color: Colors.purple,
+                  color: Colors.blue,
                   child: InkWell(
                     onTap: () {
                       Navigator.push(context,
