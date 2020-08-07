@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/ui/pages/home_page.dart';
 import 'package:flutter_app/ui/pages/search_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -12,8 +13,8 @@ class _MyHomePageState extends State<MainPage> {
   static const TextStyle _style =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  List<Widget> _contentPages = const <Widget>[
-    Text("Home Page", style: _style),
+  List<Widget> _contentPages = <Widget>[
+    HomePage(),
     Text("Email Page", style: _style),
     Text("Phone Page", style: _style),
   ];
@@ -62,6 +63,8 @@ class _MyHomePageState extends State<MainPage> {
               })
         ],
       ),
+
+      ///TODO we should solve the item color when click the navigation item.
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -89,8 +92,8 @@ class _MyHomePageState extends State<MainPage> {
                   )),
             ),
             ListTile(
-              leading: Icon(Icons.phone),
-              title: Text("Phone"),
+              leading: Icon(Icons.home),
+              title: Text("Home"),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
@@ -99,8 +102,8 @@ class _MyHomePageState extends State<MainPage> {
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Home"),
+              leading: Icon(Icons.phone),
+              title: Text("Phone"),
               onTap: () => Navigator.pop(context),
             ),
           ],
