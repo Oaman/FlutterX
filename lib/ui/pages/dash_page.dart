@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/pages/home_page.dart';
 import 'package:flutter_app/ui/pages/search_page.dart';
 
-class MainPage extends StatefulWidget {
+class DashPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _DashPageState createState() => _DashPageState();
 }
 
-class _MyHomePageState extends State<MainPage> {
+class _DashPageState extends State<DashPage> {
   var _selectionIndex = 0;
 
   static const TextStyle _style =

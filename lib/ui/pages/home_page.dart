@@ -1,15 +1,26 @@
 import 'package:banner_view/banner_view.dart';
 import 'package:dio/dio.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ui/pages/webview_page.dart';
+import 'package:flutter_app/ui/pages/webview_page_banner.dart';
 import 'package:flutter_app/ui/widgets/home_item.dart';
-import '';
+
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return MyHomePageState();
   }
+}
+
+class City {
+  final String name;
+
+  const City(this.name);
+
+  City.fromJson(Map<String, dynamic> json) : name = json["name"];
+
+  Map<String, dynamic> toJson() => {"name": name};
 }
 
 class MyHomePageState extends State<HomePage> {
@@ -35,6 +46,8 @@ class MyHomePageState extends State<HomePage> {
 
   bool isLoading = true;
 
+  bool showGoBack = false;
+
   @override
   void initState() {
     super.initState();
@@ -44,31 +57,92 @@ class MyHomePageState extends State<HomePage> {
       if (maxScroll == bottomPixels && _articlesList.length < totalPage) {
         _getArticlesList();
       }
+      if (bottomPixels < 1000 && showGoBack) {
+        setState(() => showGoBack = false);
+      } else if (bottomPixels >= 1000 && !showGoBack) {
+        setState(() => showGoBack = true);
+      }
     });
     _refreshData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Stack(
-      children: <Widget>[
-        Offstage(
-          offstage: !isLoading,
-          child: CircularProgressIndicator(),
-        ),
-        Offstage(
-          ///isLoading is for content
-          offstage: isLoading,
-          child: RefreshIndicator(
-              child: ListView.builder(
-                ///Note: itemCount itemBuilder controller should be show here.
-                itemCount: _articlesList.length + 1,
-                itemBuilder: (context, i) => buildItem(i),
-                controller: _scrollController,
-              ),
-              onRefresh: _refreshData),
-        )
-      ],
+    SpUtil.putString("key", "value123");
+    var string = SpUtil.getString("key");
+    print(string);
+    debugPrint(string);
+
+    var city = City("beijing");
+    SpUtil.putObject("city", city);
+    City obj = SpUtil.getObj("city", (v) => City.fromJson(v));
+    print(obj.name);
+
+    var city2 = City("shanghai");
+    List cities = [city, city2];
+    SpUtil.putObjectList("cities", cities);
+    List<City> list = SpUtil.getObjList("cities", (v) => City.fromJson(v));
+    print("===list ${list.toString()}");
+    for (var c in list) {
+      print("===${c.name}");
+    }
+
+    var nowDateMs = DateUtil.getNowDateMs();
+    print(nowDateMs);
+
+    var formatDateMs = DateUtil.formatDateMs(nowDateMs,
+        format: DateFormats.full); //2019-07-09 16:16:16
+    print(formatDateMs);
+
+    var decodeBase64 = EncryptUtil.encodeBase64("this is the data");
+    print(decodeBase64);
+
+    var data = EncryptUtil.decodeBase64(decodeBase64);
+    print(data);
+
+    var encodeMd5 = EncryptUtil.encodeMd5("this is data for md5");
+    print(encodeMd5);
+
+    String objStr = "{\"name\":\"成都市\"}";
+    City obj2 = JsonUtil.getObj(objStr, (v) => City.fromJson(v));
+    print(obj2.name);
+
+    var empty = ObjectUtil.isEmpty(null);
+    print(empty);
+
+    return Scaffold(
+      body: new Stack(
+        children: <Widget>[
+          Offstage(
+            offstage: !isLoading,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+          Offstage(
+            ///isLoading is for content
+            offstage: isLoading,
+            child: RefreshIndicator(
+                child: ListView.builder(
+                  ///Note: itemCount itemBuilder controller should be show here.
+                  itemCount: _articlesList.length + 1,
+                  itemBuilder: (context, i) => buildItem(i),
+                  controller: _scrollController,
+                ),
+                onRefresh: _refreshData),
+          )
+        ],
+      ),
+      floatingActionButton: !showGoBack
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                _scrollController.animateTo(0.0,
+                    duration: Duration(seconds: 2),
+                    curve: Curves.fastOutSlowIn);
+              },
+              child: Icon(Icons.arrow_upward),
+            ),
     );
   }
 
@@ -126,8 +200,8 @@ class MyHomePageState extends State<HomePage> {
           fit: BoxFit.fill,
         ),
         onTap: () {
-          Navigator.push(context, new MaterialPageRoute(builder: (context){
-              return WebViewPage(bannerData);
+          Navigator.push(context, new MaterialPageRoute(builder: (context) {
+            return WebViewPageBanner(bannerData);
           }));
         },
       );
@@ -138,5 +212,11 @@ class MyHomePageState extends State<HomePage> {
             bannerWidgets,
             intervalDuration: const Duration(seconds: 2),
           );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
   }
 }

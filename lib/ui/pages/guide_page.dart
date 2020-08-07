@@ -2,7 +2,7 @@ import 'package:flukit/flukit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/utils.dart';
-import 'package:flutter_app/ui/pages/main_page.dart';
+import 'package:flutter_app/ui/pages/dash_page.dart';
 
 class GuidePage extends StatefulWidget {
   @override
@@ -65,7 +65,7 @@ class GuidePageState extends State<GuidePage> {
                     onTap: () {
                       Navigator.push(context,
                           new MaterialPageRoute(builder: (context) {
-                        return MainPage();
+                        return DashPage();
                       }));
                     },
                     child: new CircleAvatar(

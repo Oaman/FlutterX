@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-class WebViewPage extends StatefulWidget {
+class WebViewPageItem extends StatefulWidget {
   final data;
 
-  const WebViewPage(this.data);
+  const WebViewPageItem(this.data);
 
   @override
-  State<StatefulWidget> createState() => WebViewPageState();
+  State<StatefulWidget> createState() => WebViewPageItemState();
 }
 
-class WebViewPageState extends State<WebViewPage> {
+class WebViewPageItemState extends State<WebViewPageItem> {
   FlutterWebviewPlugin _webViewPlugin;
 
   bool isLoading = true;
@@ -40,7 +40,7 @@ class WebViewPageState extends State<WebViewPage> {
             preferredSize: const Size.fromHeight(1.0)),
         bottomOpacity: isLoading ? 1.0 : 0.0,
       ),
-      url: widget.data['url'],
+      url: widget.data['link'],
       withJavascript: true,
       withLocalStorage: true,
     );
