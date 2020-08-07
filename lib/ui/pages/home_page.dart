@@ -2,6 +2,7 @@ import 'package:banner_view/banner_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/ui/pages/webview_page.dart';
 import 'package:flutter_app/ui/widgets/home_item.dart';
 import '';
 class HomePage extends StatefulWidget {
@@ -125,7 +126,9 @@ class MyHomePageState extends State<HomePage> {
           fit: BoxFit.fill,
         ),
         onTap: () {
-          debugPrint('press banner');
+          Navigator.push(context, new MaterialPageRoute(builder: (context){
+              return WebViewPage(bannerData);
+          }));
         },
       );
     }).toList();
