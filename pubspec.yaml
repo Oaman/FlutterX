@@ -32,7 +32,14 @@ dependencies:
   dio: ^3.0.9
   banner_view: ^1.1.2
   flutter_webview_plugin: ^0.3.11
-  flustars: ^0.3.3
+  path_provider: ^0.4.1 #getApplicationDocumentsDirectory
+  toast: ^0.1.3
+  cookie_jar: ^1.0.0 #PersistCookieJar
+  dio_cookie_manager: ^1.0.0 #CookieManager
+  event_bus: ^1.0.3
+  shared_preferences: ^0.5.1+2
+  flutter_slidable: "^0.4.9"
+#  flustars: ^0.3.3
 
 dev_dependencies:
   flutter_test:

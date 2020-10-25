@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/manager/app_manager.dart';
 import 'package:flutter_app/ui/pages/home_page.dart';
 import 'package:flutter_app/ui/pages/search_page.dart';
 
@@ -19,9 +20,19 @@ class _DashPageState extends State<DashPage> {
     Text("Phone Page", style: _style),
   ];
 
+
+  initData() async {
+    Iterable<Future> futures = [
+      AppManager.initApp(),
+      Future.delayed(Duration(seconds: 5))
+    ];
+    await Future.wait(futures);
+  }
+
   @override
   void initState() {
     super.initState();
+    initData();
   }
 
   @override

@@ -1,8 +1,10 @@
 import 'package:banner_view/banner_view.dart';
 import 'package:dio/dio.dart';
-import 'package:flustars/flustars.dart';
+
+// import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common/http/api.dart';
 import 'package:flutter_app/ui/pages/webview_page_banner.dart';
 import 'package:flutter_app/ui/widgets/home_item.dart';
 
@@ -68,47 +70,47 @@ class MyHomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SpUtil.putString("key", "value123");
-    var string = SpUtil.getString("key");
-    print(string);
-    debugPrint(string);
-
-    var city = City("beijing");
-    SpUtil.putObject("city", city);
-    City obj = SpUtil.getObj("city", (v) => City.fromJson(v));
-    print(obj.name);
-
-    var city2 = City("shanghai");
-    List cities = [city, city2];
-    SpUtil.putObjectList("cities", cities);
-    List<City> list = SpUtil.getObjList("cities", (v) => City.fromJson(v));
-    print("===list ${list.toString()}");
-    for (var c in list) {
-      print("===${c.name}");
-    }
-
-    var nowDateMs = DateUtil.getNowDateMs();
-    print(nowDateMs);
-
-    var formatDateMs = DateUtil.formatDateMs(nowDateMs,
-        format: DateFormats.full); //2019-07-09 16:16:16
-    print(formatDateMs);
-
-    var decodeBase64 = EncryptUtil.encodeBase64("this is the data");
-    print(decodeBase64);
-
-    var data = EncryptUtil.decodeBase64(decodeBase64);
-    print(data);
-
-    var encodeMd5 = EncryptUtil.encodeMd5("this is data for md5");
-    print(encodeMd5);
-
-    String objStr = "{\"name\":\"成都市\"}";
-    City obj2 = JsonUtil.getObj(objStr, (v) => City.fromJson(v));
-    print(obj2.name);
-
-    var empty = ObjectUtil.isEmpty(null);
-    print(empty);
+    // SpUtil.putString("key", "value123");
+    // var string = SpUtil.getString("key");
+    // print(string);
+    // debugPrint(string);
+    //
+    // var city = City("beijing");
+    // SpUtil.putObject("city", city);
+    // City obj = SpUtil.getObj("city", (v) => City.fromJson(v));
+    // print(obj.name);
+    //
+    // var city2 = City("shanghai");
+    // List cities = [city, city2];
+    // SpUtil.putObjectList("cities", cities);
+    // List<City> list = SpUtil.getObjList("cities", (v) => City.fromJson(v));
+    // print("===list ${list.toString()}");
+    // for (var c in list) {
+    //   print("===${c.name}");
+    // }
+    //
+    // var nowDateMs = DateUtil.getNowDateMs();
+    // print(nowDateMs);
+    //
+    // var formatDateMs = DateUtil.formatDateMs(nowDateMs,
+    //     format: DateFormats.full); //2019-07-09 16:16:16
+    // print(formatDateMs);
+    //
+    // var decodeBase64 = EncryptUtil.encodeBase64("this is the data");
+    // print(decodeBase64);
+    //
+    // var data = EncryptUtil.decodeBase64(decodeBase64);
+    // print(data);
+    //
+    // var encodeMd5 = EncryptUtil.encodeMd5("this is data for md5");
+    // print(encodeMd5);
+    //
+    // String objStr = "{\"name\":\"成都市\"}";
+    // City obj2 = JsonUtil.getObj(objStr, (v) => City.fromJson(v));
+    // print(obj2.name);
+    //
+    // var empty = ObjectUtil.isEmpty(null);
+    // print(empty);
 
     return Scaffold(
       body: new Stack(
@@ -147,10 +149,8 @@ class MyHomePageState extends State<HomePage> {
   }
 
   Future<void> _getBannerList() async {
-    var dio = Dio();
-    var bannerResponse =
-        await dio.get("https://www.wanandroid.com/banner/json");
-    var bannersData = bannerResponse.data['data'];
+    var bannerResponse = await Api.getBanner();
+    var bannersData = bannerResponse['data'];
     _bannersList.clear();
     _bannersList = bannersData;
     setState(() {});
