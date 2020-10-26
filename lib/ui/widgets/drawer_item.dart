@@ -22,6 +22,7 @@ class DrawerItemState extends State<DrawerItem> {
       _userName = event.userName;
 
       AppManager.prefs.setString(AppManager.ACCOUNT, _userName);
+
       if (mounted) {
         setState(() {});
       }
@@ -33,6 +34,7 @@ class DrawerItemState extends State<DrawerItem> {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
+
         ///使得statusBar颜色一致
         padding: EdgeInsets.zero,
         children: <Widget>[
@@ -43,10 +45,12 @@ class DrawerItemState extends State<DrawerItem> {
                       bottomLeft: Radius.circular(8),
                       bottomRight: Radius.circular(8))),
               child: InkWell(
+
                 ///点击这里去登录，如果登录了就什么也不做
                 onTap: () => _itemClick(null),
                 child: Column(
                   children: <Widget>[
+
                     ///善用Padding效果
                     Padding(
                       padding: EdgeInsets.only(top: 18, bottom: 18),
@@ -76,24 +80,30 @@ class DrawerItemState extends State<DrawerItem> {
               color: Colors.grey,
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text("我的收藏"),
-            onTap: () {
-              ///点击这里去收藏，如果没有登录就先去登录
-              _itemClick(CollectPage());
-            },
-          ),
           Offstage(
+
             /// true就是不显示  false就显示
             offstage: _userName == null,
             child: InkWell(
               onTap: () {
-                setState(() {
-                  AppManager.prefs.setString(AppManager.ACCOUNT, null);
-                  Api.clearCookie();
-                  _userName = null;
-                  AppManager.eventBus.fire(LogoutEvent());
+                showDialog(context: context, builder: (context) {
+                  return AlertDialog(
+                    title: Text("退出登录"),
+                    content: Text("你确定要退出登录吗?"),
+                    actions: <Widget>[
+                      FlatButton(onPressed: () => Navigator.pop(context),
+                          child: Text("取消")),
+                      FlatButton(onPressed: () {
+                        setState(() {
+                          AppManager.prefs.setString(AppManager.ACCOUNT, null);
+                          Api.clearCookie();
+                          _userName = null;
+                          AppManager.eventBus.fire(LogoutEvent());
+                          Navigator.pop(context);
+                        });
+                      }, child: Text("确定"))
+                    ],
+                  );
                 });
               },
               child: ListTile(

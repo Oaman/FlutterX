@@ -30,6 +30,7 @@ class HttpManager {
         receiveTimeout: 5000);
     _dio = Dio(options);
 
+    ///持久化存储
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
     _persistCookieJar = PersistCookieJar(dir: appDocPath + "/.cookies/");
