@@ -50,5 +50,7 @@ class HttpManager {
     }
   }
 
-  void clearCookie() {}
+  void clearCookie() {
+    _persistCookieJar.deleteAll();
+  }
 }

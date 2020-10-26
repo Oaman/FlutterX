@@ -12,6 +12,9 @@ class Api {
   //登录
   static const String LOGIN = "user/login";
 
+  //注册
+  static const String REGISTER = "user/register";
+
   static init() async {
     _http = HttpManager.getInstance();
     await _http.init();
@@ -24,6 +27,13 @@ class Api {
   static login(String name, String password) async {
     var formData = FormData.fromMap({"username": name, "password": password});
     return await _http.request(LOGIN, data: formData, method: "post");
+  }
+
+  static register(String name, String pwd) async {
+    ///必须使用Form表单提交
+    var formData = FormData.fromMap(
+        {"username": name, "password": pwd, "repassword": pwd});
+    return await _http.request(REGISTER, data: formData, method: "post");
   }
 
   static void clearCookie() {

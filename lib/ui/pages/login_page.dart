@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/common/event/events.dart';
 import 'package:flutter_app/common/http/api.dart';
 import 'package:flutter_app/manager/app_manager.dart';
+import 'package:flutter_app/ui/pages/register_page.dart';
 import 'package:toast/toast.dart';
 
 class LoginPage extends StatefulWidget {
@@ -36,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
               _buildUserName(),
               _buildPassword(),
               _buildLogin(),
+              _buildRegister(),
             ],
           )),
     );
@@ -109,6 +111,30 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _buildRegister() {
+    return Padding(
+      padding: EdgeInsets.only(top: 10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text('没有账号？'),
+          GestureDetector(
+            child: Text(
+              '点击注册',
+              style: TextStyle(color: Colors.green),
+            ),
+            onTap: () async {
+              ///进入注册
+              Navigator.push(context, MaterialPageRoute(builder: (_) {
+                return RegisterPage();
+              }));
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   void _doLogin() async {
     _pwdNode.unfocus();
     if (_formKey.currentState.validate()) {
@@ -120,6 +146,7 @@ class _LoginPageState extends State<LoginPage> {
           });
 
       var result = await Api.login(_userName, _password);
+      print("登录结果：$result");
 
       ///关闭loading dialog
       Navigator.pop(context);
