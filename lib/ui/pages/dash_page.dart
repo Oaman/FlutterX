@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/manager/app_manager.dart';
 import 'package:flutter_app/ui/pages/home_page.dart';
 import 'package:flutter_app/ui/pages/search_page.dart';
+import 'package:flutter_app/ui/widgets/drawer_item.dart';
 
 class DashPage extends StatefulWidget {
   @override
@@ -19,7 +20,6 @@ class _DashPageState extends State<DashPage> {
     Text("Email Page", style: _style),
     Text("Phone Page", style: _style),
   ];
-
 
   initData() async {
     Iterable<Future> futures = [
@@ -76,50 +76,7 @@ class _DashPageState extends State<DashPage> {
       ),
 
       ///TODO we should solve the item color when click the navigation item.
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Container(
-              child: DrawerHeader(
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10))),
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: 30,
-                          child: Image.asset("assets/images/logo.png"),
-                        ),
-                        Text(
-                          "Drawer Header",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        )
-                      ],
-                    ),
-                  )),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Home"),
-              onTap: () => Navigator.pop(context),
-            ),
-            ListTile(
-              leading: Icon(Icons.email),
-              title: Text("Email"),
-              onTap: () => Navigator.pop(context),
-            ),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text("Phone"),
-              onTap: () => Navigator.pop(context),
-            ),
-          ],
-        ),
-      ),
+      drawer: DrawerItem(),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

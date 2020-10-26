@@ -15,7 +15,7 @@ class Api {
     return await _http.request(BANNER);
   }
 
-  void clearCookie() {
+  static void clearCookie() {
     _http.clearCookie();
   }
 }
