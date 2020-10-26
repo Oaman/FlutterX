@@ -157,8 +157,7 @@ class MyHomePageState extends State<HomePage> {
   }
 
   Future<void> _getArticlesList() async {
-    var articlesResponse =
-        await Api.getArticleList(curPage);
+    var articlesResponse = await Api.getArticleList(curPage);
     var articlesBean = articlesResponse['data'];
     if (curPage == 0) {
       _articlesList.clear();

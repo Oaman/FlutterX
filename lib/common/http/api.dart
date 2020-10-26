@@ -28,6 +28,8 @@ class Api {
   //取消收藏
   static const String UNCOLLECT_INTERNAL_ARTICLE = "lg/uncollect_originId/";
 
+
+  //收藏网站
   static const String COLLECT_WEBSITE = "lg/collect/addtool/json";
 
   static const String UNCOLLECT_WEBSITE = "lg/collect/deletetool/json";
@@ -66,6 +68,11 @@ class Api {
     return await _http.request("$COLLECT_ARTICLE_LIST/$curPage/json");
   }
 
+  /// https://www.wanandroid.com/lg/collect/usertools/jso
+  static getWebSiteCollects() async {
+    return await _http.request(COLLECT_WEBSITE_LIST);
+  }
+
   ///https://www.wanandroid.com/lg/collect/1165/json
   static collectArticle(int id) async {
     return await _http
@@ -76,6 +83,20 @@ class Api {
   static unCollectArticle(int id) async {
     return await _http
         .request("$UNCOLLECT_INTERNAL_ARTICLE$id/json", method: "post");
+  }
+
+  /// https://www.wanandroid.com/lg/collect/addtool/json
+  static collectWebsite(String name, String link) async {
+    var formData = FormData.fromMap({"name": name, "link": link});
+    return await _http
+        .request(COLLECT_WEBSITE, data: formData, method: "post");
+  }
+
+  /// https://www.wanandroid.com/lg/collect/deletetool/json
+  static unCollectWebsite(int id) async {
+    var formData = FormData.fromMap({"id": id});
+    return await _http
+        .request(UNCOLLECT_WEBSITE, data: formData, method: "post");
   }
 
   static void clearCookie() {

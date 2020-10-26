@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 ///this dart file is for test.
-void main() async {
+void main() {
   // var dio = Dio();
   // var bannerResponse =
   //     await dio.get("https://www.wanandroid.com/banner/json");
@@ -18,9 +18,29 @@ void main() async {
   // print(articles);
   // getBanner();
 
-  var data = await getBanner3();
-  print(data.data['data']);
+  // var data = await getBanner3();
+  // print(data.data['data']);
+
+  // var data = getBanner3();
+  // print(data.then((value) {
+  //   print(value.data['data']);
+  // }));
+
+  getBanner();
   print("finish");
+}
+
+///have return result use Dio().request()
+Future<Response> getBanner3() async {
+  var dio = Dio();
+  dio.interceptors.add(new InterceptorsWrapper(onRequest: (options) {
+    print(options.baseUrl + "--" + options.path);
+  }, onResponse: (response) {
+    print(response.data['data']);
+  }));
+  var response = await dio.request("https://www.wanandroid.com/banner/json");
+  // print(response.data['data']);
+  return response;
 }
 
 /// don't have return result
@@ -35,19 +55,6 @@ void getBanner() async {
 ///have return result
 Future<Response> getBanner2() async {
   var response = await Dio().get("https://www.wanandroid.com/banner/json");
-  // print(response.data['data']);
-  return response;
-}
-
-///have return result use Dio().request()
-Future<Response> getBanner3() async {
-  var dio = Dio();
-  dio.interceptors.add(new InterceptorsWrapper(onRequest: (options) {
-    print(options.baseUrl + "--" + options.path);
-  }, onResponse: (response) {
-    print(response.data['data']);
-  }));
-  var response = await dio.request("https://www.wanandroid.com/banner/json");
-  // print(response.data['data']);
+  print(response.data['data']);
   return response;
 }

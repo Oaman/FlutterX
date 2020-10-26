@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/res/icons.dart';
-import 'package:flutter_app/ui/pages/page_collect_article.dart';
+import 'package:flutter_app/ui/pages/collect_article_page.dart';
+import 'package:flutter_app/ui/pages/collect_website_page.dart';
 
 class CollectPage extends StatefulWidget {
   @override
@@ -31,7 +32,7 @@ class _CollectPageState extends State<CollectPage> {
           ),
           body: TabBarView(children: <Widget>[
             ArticleCollectPage(),
-            ArticleCollectPage(),
+            WebsiteCollectPage(),
           ],),
         ));
   }
