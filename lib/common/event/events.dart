@@ -8,7 +8,7 @@ class LogoutEvent {}
 
 class CollectEvent {
   int id;
-  bool isCollect;
+  bool collect;
 
-  CollectEvent(this.id, this.isCollect);
+  CollectEvent(this.id, this.collect);
 }

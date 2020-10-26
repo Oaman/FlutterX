@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ui/pages/webview_page_item.dart';
+import 'package:flutter_app/ui/pages/webview_page.dart';
 
 /// Home Item
-class HomeItem extends StatelessWidget {
+class ArticleItem extends StatelessWidget {
   final item;
 
-  const HomeItem(this.item);
+  const ArticleItem(this.item);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,9 @@ class HomeItem extends StatelessWidget {
             onTap: () {
               debugPrint(item['link']);
               Navigator.push(ctx, new MaterialPageRoute(builder: (context) {
-                return WebViewPageItem(item);
+                ///这里因为数据的原因，在banner中返回的是url, 在article中是link，需要转换一下格式
+                item['url'] = item['link'];
+                return WebViewPage(item, supportCollect: true);
               }));
             },
             child: Column(

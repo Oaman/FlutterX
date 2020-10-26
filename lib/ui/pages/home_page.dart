@@ -5,8 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/http/api.dart';
-import 'package:flutter_app/ui/pages/webview_page_banner.dart';
-import 'package:flutter_app/ui/widgets/home_item.dart';
+import 'package:flutter_app/ui/pages/webview_page.dart';
+import 'package:flutter_app/ui/widgets/article_item.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -157,10 +157,9 @@ class MyHomePageState extends State<HomePage> {
   }
 
   Future<void> _getArticlesList() async {
-    var dio = Dio();
     var articlesResponse =
-        await dio.get("https://www.wanandroid.com/article/list/$curPage/json");
-    var articlesBean = articlesResponse.data['data'];
+        await Api.getArticleList(curPage);
+    var articlesBean = articlesResponse['data'];
     if (curPage == 0) {
       _articlesList.clear();
     }
@@ -188,7 +187,7 @@ class MyHomePageState extends State<HomePage> {
         child: _bannerView(),
       );
     } else {
-      return HomeItem(_articlesList[i - 1]);
+      return ArticleItem(_articlesList[i - 1]);
     }
   }
 
@@ -201,7 +200,7 @@ class MyHomePageState extends State<HomePage> {
         ),
         onTap: () {
           Navigator.push(context, new MaterialPageRoute(builder: (context) {
-            return WebViewPageBanner(bannerData);
+            return WebViewPage(bannerData);
           }));
         },
       );
